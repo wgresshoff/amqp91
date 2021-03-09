@@ -1,0 +1,30 @@
+quarkus:
+  container-image:
+    build: true
+    push: true
+    group: wwuulb
+    name: amqp91
+    registry: ulb.wwu.io
+  kubernetes:
+    part-of: amqp91-service
+    name: amqp91-service
+    version: 1.0.0
+    image-pull-secrets: ulbreg
+    resources:
+      limits:
+        cpu: 2
+        memory: 4Gi
+      requests:
+        cpu: 2
+        memory: 4Gi
+  rabbitmqclient:
+    virtual-host: /
+    username: guest
+    password: f3f1d5462b726ec0
+    port: 5672
+    hostname: rabbitmq.invenio
+
+"%dev":
+  quarkus:
+    rabbitmqclient:
+      hostname: localhost
